@@ -4,10 +4,13 @@ var Facebook = function(map, view, callback) {
 	this.login = function() {
 		// login a user and call callback() if successfull
 		// be sure to provide appropriate {scopes: "scopes,go,here"}
+		view.showLogout();
+		console.log('hello');
 	}
 
 	this.logout = function() {
 		// log the user out, remember the buttons!
+		view.showLogin();
 	}
 
 	this.getFriends = function(cb) {

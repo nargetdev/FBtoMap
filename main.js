@@ -45,11 +45,14 @@ $(document).ready(function () {
 
 	this.showLogin = function() {
 		// show and hide the right buttons
+		$( "#login_bar :input[value='login']" ).removeClass("hide");
+		$( "#login_bar :input[value='logout']" ).addClass("hide");
 	}
 
 	this.showLogout = function() {
 	// show and hide the right buttons
-
+		$( "#login_bar :input[value='login']" ).addClass("hide");
+		$( "#login_bar :input[value='logout']" ).removeClass("hide");
 	}
 
 	this.showSpinner = function() {
@@ -61,6 +64,7 @@ $(document).ready(function () {
 
 
 	}
+	
 
 	/* 
 	attach all of the buttons and key press events below here
@@ -73,6 +77,13 @@ $(document).ready(function () {
 	 		- reset and clear #search_dropdown
 	- .clear(click): remove data and reset miles/image, other UI
 	*/
+	$( "#login_bar :input[value='login']" ).click(function() {
+  			fb.login();
+	});
+
+	$( "#login_bar :input[value='logout']" ).click(function() {
+  			fb.logout();
+	});
 
 });
 
