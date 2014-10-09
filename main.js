@@ -47,7 +47,10 @@ $(document).ready(function () {
 		// show and hide the right buttons
 	}
 
-	this.showLogout = function() {}
+	this.showLogout = function() {
+	// show and hide the right buttons
+		
+	}
 
 	this.showSpinner = function() {}
 
