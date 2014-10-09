@@ -49,12 +49,18 @@ $(document).ready(function () {
 
 	this.showLogout = function() {
 	// show and hide the right buttons
-		
+
 	}
 
-	this.showSpinner = function() {}
+	this.showSpinner = function() {
+		
 
-	this.hideSpinner = function() {}
+	}
+
+	this.hideSpinner = function() {
+
+
+	}
 
 	/* 
 	attach all of the buttons and key press events below here
