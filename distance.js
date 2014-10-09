@@ -1,6 +1,7 @@
 
 	Number.prototype.toRad = function() {
 		// convert an angle (in degrees) to radians
+		return this.valueOf() * Math.PI / 180;
 	}
 
 	Number.prototype.prettyPrint = function() {

@@ -57,12 +57,12 @@ $(document).ready(function () {
 
 	this.showSpinner = function() {
 		
-
+		$("#spinner").removeClass("hide");
 	}
 
 	this.hideSpinner = function() {
 
-
+		$("#spinner").addClass("hide");
 	}
 	
 
