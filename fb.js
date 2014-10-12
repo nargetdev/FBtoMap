@@ -4,12 +4,23 @@ var Facebook = function(map, view, callback) {
 	this.login = function() {
 		// login a user and call callback() if successfull
 		// be sure to provide appropriate {scopes: "scopes,go,here"}
+		FB.login(function(response) {
+			if (response.authResponse) {
+				console.log('Welcome!  Fetching your information.... ');
+				FB.api('/me', function(response) {
+				console.log('Good to see you, ' + response.name + '.');
+			});
+			} else {
+				console.log('User cancelled login or did not fully authorize.');
+			}
+		});
 		view.showLogout();
-		console.log('hello');
+		
 	}
 
 	this.logout = function() {
 		// log the user out, remember the buttons!
+		FB.logout(function(){document.location.reload();});
 		view.showLogin();
 	}
 
@@ -18,6 +29,13 @@ var Facebook = function(map, view, callback) {
 		// an argument to cb, be sure to add the logged 
 		// in fb user too! 
 		// returns somethin like cb([{name:"",id:""},...]);
+		console.log("in getFriends");
+		FB.api('/me/friends', function(response) {
+                    for(var i = 0; i < response.data.length; i++) {
+                        cb[i] = response.data[i].id; 
+                        alert(cb[i]); 
+                    }
+		});
 	}
 
 	var count = 0;

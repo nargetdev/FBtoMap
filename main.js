@@ -27,6 +27,7 @@ $(document).ready(function () {
 	var typeahead = new Typeahead();;
 	var that = this;
 	var fb = new Facebook(map, this, function() {
+		fb.getFriends();
 		// called on successful login
 		// set typeahead data and show/hide buttons
 	});
