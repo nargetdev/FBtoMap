@@ -88,5 +88,15 @@ $(document).ready(function () {
   			fb.logout();
 	});
 
+	$( "#user" ).keyup(function() {
+  		//console.log( "Handler for .keyup() called." );
+  		var key = document.getElementById('user').value;
+  		console.log(key);
+  		//typeahead.search();
+	});
+	$( ".clear" ).click(function() {
+  		console.log('Clicked Clear');
+	});
+
 });
 

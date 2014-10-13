@@ -7,8 +7,10 @@
 			this.list = data;
 			for(var i = 0; i < this.list.length; i++) {
                     	this.list[i].name;
-                    	console.log(this.list[i].name);
-                   }
+            }
+            this.list.sort(function(a, b){
+            	return ((a.name < b.name) ? -1 : ((a.name > b.name) ? 1 : 0));
+            })
 			// set the list to a list of name,id pairs
 			// then sort it by fullname A-Z 
 		}

@@ -15,7 +15,7 @@ var Facebook = function(map, view, callback) {
 				console.log('User cancelled login or did not fully authorize.');
 			}
 		});
-		view.showLogout();
+		// view.showLogout();
 		callback();
 		
 	}
@@ -55,19 +55,6 @@ var Facebook = function(map, view, callback) {
 		// be sure to make the time: new Date("time_string")
 	}
 
-	this.search = function (id) {
-		// get "photos" and "statuses" with places attached
-		// pass the data to the map with map.passToMap({...})
-		// after *all* two API calls have returned, call map.renderAllPoints()
-		// yay! async :) 
-
-		// be sure your scopes are right during login
-		// example: FB.api(id+"/photos?fields=place.fields(location,name)&limit=1000", this.passToMap);
-		// use developers.facebook.com/tools/explorer to test!
-
-		// hint, what should the user see while they wait?
-	}
-
 	this.init = function() {
 		console.log('facebook.init');
 		/* provided FB init code, don't need to touch much at all*/
@@ -80,7 +67,10 @@ var Facebook = function(map, view, callback) {
 				appId      : '550842745047551',	// App ID from the app dashboard
 				channelUrl : '/channel.html', 	// Channel file for x-domain comms
 				status     : true,				// Check Facebook Login status
-				xfbml      : true				// Look for social plugins on the page
+				xfbml      : true,				// Look for social plugins on the page
+				version    : 'v2.0',
+				cookie     : true,
+				oauth      : true
 			});
 
 			FB.getLoginStatus(function(response) {
