@@ -24,15 +24,18 @@ $(document).ready(function () {
 	*/
 
 	var map = new Map(this);
-	var typeahead = new Typeahead();;
+	var typeahead = new Typeahead();
 	var that = this;
 	var fb = new Facebook(map, this, function() {
+
+		console.log('main -> fb = new Facebook()');
 		fb.getFriends(typeahead.setDataList);
-		console.log('facebook = new facebook');
 		that.showLogout();
+
 		// called on successful login
 		// set typeahead data and show/hide buttons
 	});
+
 
 	// create dat spinner
 	this.spinner = new Spinner({radius: 30, length: 30}).spin($("#spinner")[0]);
@@ -72,28 +75,45 @@ $(document).ready(function () {
 	/* 
 	attach all of the buttons and key press events below here
 	- .login(click)
+
 	- .logout(click)
+
 	- #user(keyup): use typeahead.search(key, callback)
 	- the call back should render the .drop_items with IDs and Names
 		- attach a .drop_item(click)
 	 		- start the fb search, call fb.search(id)
 	 		- reset and clear #search_dropdown
+
 	- .clear(click): remove data and reset miles/image, other UI
 	*/
-	$( "#login_bar :input[value='login']" ).click(function() {
-  			fb.login();
+
+
+	$( ".login" ).click(function() {
+  		fb.login();
 	});
 
-	$( "#login_bar :input[value='logout']" ).click(function() {
-  			fb.logout();
+	$( ".logout" ).click(function() {
+  		fb.logout();
 	});
 
-	$( "#user" ).keyup(function() {
-  		//console.log( "Handler for .keyup() called." );
+	$("#user").keyup(function() {
+
   		var key = document.getElementById('user').value;
-  		console.log(key);
-  		//typeahead.search();
+  		typeahead.search(key, function(result){
+
+  			//callback function passed to typeahead.search
+  			console.log("keyup->callback");
+  			console.log(result);
+  			for(var i = 0; i < result.length; i++)
+  			{
+  				var div = document.getElementById('search_dropdown');
+  				div.innerHTML = div.innerHTML + "<div class='drop_item' data-id='" 
+  							  + result[i].id + "'>" + result[i].name + "</div>";
+  			}
+  			
+  		});
 	});
+
 	$( ".clear" ).click(function() {
   		console.log('Clicked Clear');
 	});

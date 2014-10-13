@@ -8,6 +8,8 @@
 		// return a string representation of an integer
 		// which has commas every three digits
 
+		//***If this doesn't work we have to use regular expressions...
+
 		var val = this.valueOf();
 		val.toLocaleString();
 		return val;
@@ -20,7 +22,7 @@
 		var R = 3963;
 		//This is the radius of the earth in miles.
 
-		if(!first | !second) return 0;
+		if(!first || !second) return 0;
 
 		var dLat = (second.lat - first.lat).toRad();
 		var dLng = (second.lng - first.lng).toRad();

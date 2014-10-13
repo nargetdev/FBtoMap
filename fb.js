@@ -2,7 +2,7 @@
 var Facebook = function(map, view, callback) {
 
 	this.login = function() {
-		console.log('facebook login');
+		console.log('fb -> login');
 		// login a user and call callback() if successfull
 		// be sure to provide appropriate {scopes: "scopes,go,here"}
 		FB.login(function(response) {
@@ -10,18 +10,16 @@ var Facebook = function(map, view, callback) {
 				console.log('Welcome!  Fetching your information.... ');
 				FB.api('/me', function(response) {
 				console.log('Good to see you, ' + response.name + '.');
+				callback();
 			});
 			} else {
 				console.log('User cancelled login or did not fully authorize.');
 			}
 		});
-		// view.showLogout();
-		callback();
-		
 	}
 
 	this.logout = function() {
-		console.log('facebook logout');
+		console.log('fb -> logout');
 		// log the user out, remember the buttons!
 		FB.logout(function(){document.location.reload();});
 		view.showLogin();
@@ -33,17 +31,18 @@ var Facebook = function(map, view, callback) {
 		// in fb user too! 
 		// returns somethin like cb([{name:"",id:""},...]);
 		var list = [];
-		console.log("facebook getFriends");
+		console.log("fb -> getFriends");
+		
 		FB.api('/me/taggable_friends', function(response) {
-                    for(var i = 0; i < response.data.length; i++) {
-                    	list.push({
-                    		name: response.data[i].name,
-                    		id: response.data[i].id,
-                    		picture: response.data[i].picture.data.url
-                    	});
-                    }
-                    //console.log(cb);
-                    cb(list);
+
+            for(var i = 0; i < response.data.length; i++) {
+            	list.push({
+            		name: response.data[i].name,
+            		id: response.data[i].id,
+            		picture: response.data[i].picture.data.url
+            	});
+            }
+            cb(list);
 		});
 	}
 
@@ -56,7 +55,7 @@ var Facebook = function(map, view, callback) {
 	}
 
 	this.init = function() {
-		console.log('facebook.init');
+		console.log('fb -> init');
 		/* provided FB init code, don't need to touch much at all*/
 
 		var that = this; // note this usefull trick!
