@@ -29,7 +29,7 @@ var Facebook = function(map, view, callback) {
 		// an argument to cb, be sure to add the logged 
 		// in fb user too! 
 		// returns somethin like cb([{name:"",id:""},...]);
-		console.log("in getFriends");
+		console.log("In getFriends");
 		FB.api('/me/friends', function(response) {
                     for(var i = 0; i < response.data.length; i++) {
                         cb[i] = response.data[i].id; 
