@@ -2,6 +2,7 @@
 var Facebook = function(map, view, callback) {
 
 	this.login = function() {
+		console.log('facebook login');
 		// login a user and call callback() if successfull
 		// be sure to provide appropriate {scopes: "scopes,go,here"}
 		FB.login(function(response) {
@@ -15,10 +16,12 @@ var Facebook = function(map, view, callback) {
 			}
 		});
 		view.showLogout();
+		callback();
 		
 	}
 
 	this.logout = function() {
+		console.log('facebook logout');
 		// log the user out, remember the buttons!
 		FB.logout(function(){document.location.reload();});
 		view.showLogin();
@@ -29,12 +32,18 @@ var Facebook = function(map, view, callback) {
 		// an argument to cb, be sure to add the logged 
 		// in fb user too! 
 		// returns somethin like cb([{name:"",id:""},...]);
-		console.log("In getFriends");
-		FB.api('/me/friends', function(response) {
+		var list = [];
+		console.log("facebook getFriends");
+		FB.api('/me/taggable_friends', function(response) {
                     for(var i = 0; i < response.data.length; i++) {
-                        cb[i] = response.data[i].id; 
-                        alert(cb[i]); 
+                    	list.push({
+                    		name: response.data[i].name,
+                    		id: response.data[i].id,
+                    		picture: response.data[i].picture.data.url
+                    	});
                     }
+                    //console.log(cb);
+                    cb(list);
 		});
 	}
 
@@ -60,7 +69,7 @@ var Facebook = function(map, view, callback) {
 	}
 
 	this.init = function() {
-
+		console.log('facebook.init');
 		/* provided FB init code, don't need to touch much at all*/
 
 		var that = this; // note this usefull trick!

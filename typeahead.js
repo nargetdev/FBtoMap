@@ -3,6 +3,12 @@
 	
 		this.list = []; // list of objects like: { name:"", id:"" }
 		this.setDataList = function(data) {
+			console.log('typeahead setDataList');
+			this.list = data;
+			for(var i = 0; i < this.list.length; i++) {
+                    	this.list[i].name;
+                    	console.log(this.list[i].name);
+                   }
 			// set the list to a list of name,id pairs
 			// then sort it by fullname A-Z 
 		}
