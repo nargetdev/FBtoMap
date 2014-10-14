@@ -10,7 +10,7 @@
 			//console.log(data);
 
 			//list = JSON.parse(JSON.stringify(data));
-			this.list = data;
+			list = data;
 
 			//console.log(list)
 
