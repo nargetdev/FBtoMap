@@ -24,12 +24,13 @@ var Map = function Map(view) {
 		// render map here
 		this.map = new google.maps.Map($('#map_canvas')[0], mapOptions);
 	}
-
 	this.points = []; // { lat:0.0, lng:0.0, name: "", time: Date() }
 	this.markers = []; // array of markers already on map
 
 	this.addPoint = function(point) {
 		// adds a point to this.points
+		this.points.push(point);
+		console.log(this.points);
 	}
 
 	this.renderAllPoints = function () {
