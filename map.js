@@ -1,5 +1,3 @@
-
-
 /*
 	hints:
 	-implement the line with a google.maps.Polyline
@@ -30,13 +28,30 @@ var Map = function Map(view) {
 	this.addPoint = function(point) {
 		// adds a point to this.points
 		this.points.push(point);
-		console.log(this.points);
+		//console.log(this.points);
+		this.renderAllPoints();
+
 	}
 
 	this.renderAllPoints = function () {
 		// remove all old map data, *sort* the points
 		// and render each point ever ~300ms
-		// don't render the point if dist(this_pt,prev) === 0		
+		// don't render the point if dist(this_pt,prev) === 0	
+		//sort the points first
+		var flightPlanCoordinates = [];
+		for(var i = 0; i < this.points.length; i++)
+		{
+			flightPlanCoordinates.push(new google.maps.LatLng(this.points[i].lat, this.points[i].lng));
+		}
+			  var flightPath = new google.maps.Polyline({
+			    path: flightPlanCoordinates,
+			    geodesic: true,
+			    strokeColor: '#FF0000',
+			    strokeOpacity: 1.0,
+			    strokeWeight: 2
+			  });
+
+			  flightPath.setMap(this.map);	
 	}
 
 	this.removeData = function() {

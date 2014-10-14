@@ -1,8 +1,9 @@
 
 var Facebook = function(map, view, callback) {
 
+
+	var that = this;
 	this.login = function() {
-		var that = this;
 		console.log('fb -> login');
 		// login a user and call callback() if successfull
 		// be sure to provide appropriate {scopes: "scopes,go,here"}
@@ -64,7 +65,6 @@ var Facebook = function(map, view, callback) {
 		// call map.addPoint(point)
 		// be sure to make the time: new Date("time_string")
 		console.log("in passtomap");
-		console.log(response.data.length);
 		for(var i = 0; i < response.data.length; i++)
 		{
 			if(!(typeof response.data[i].place === 'undefined'))
@@ -101,6 +101,7 @@ var Facebook = function(map, view, callback) {
 			FB.getLoginStatus(function(response) {
 				if (response.status === 'connected') {
 					// the user is logged in and has authenticated
+					FB.api('/me/photos?fields=place.fields(location,name)&limit=1000', that.passToMap);
 					callback(); // we'll give you this one
 
 				} else if (response.status === 'not_authorized') {

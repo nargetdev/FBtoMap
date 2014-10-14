@@ -5,13 +5,10 @@
 
 		this.setDataList = function(data) {
 
-			//this.list = new Array();
 			console.log('typeahead -> setDataList');
 			//console.log(data);
 
-			//list = JSON.parse(JSON.stringify(data));
 			list = data;
-
 			//console.log(list)
 
             list.sort(function(a, b) {
