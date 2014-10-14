@@ -22,6 +22,7 @@ $(document).ready(function () {
 	so dev with Chrome for gosh sake! Use the dev tools too they're
 	amazing!
 	*/
+	var friendList = [];
 
 	var map = new Map(this);
 	var typeahead = new Typeahead();
@@ -79,6 +80,7 @@ $(document).ready(function () {
 	- .logout(click)
 
 	- #user(keyup): use typeahead.search(key, callback)
+
 	- the call back should render the .drop_items with IDs and Names
 		- attach a .drop_item(click)
 	 		- start the fb search, call fb.search(id)
@@ -98,24 +100,57 @@ $(document).ready(function () {
 
 	$("#user").keyup(function() {
 
+
   		var key = document.getElementById('user').value;
-  		typeahead.search(key, function(result){
+  		typeahead.search(key, function(result) { 
+
+  			friendList = result;
+  			var node = document.getElementById('search_dropdown');
+			while (node.hasChildNodes()) {
+			    node.removeChild(node.firstChild);
+			}
 
   			//callback function passed to typeahead.search
   			console.log("keyup->callback");
-  			console.log(result);
+  			//console.log(result);
+
   			for(var i = 0; i < result.length; i++)
   			{
   				var div = document.getElementById('search_dropdown');
   				div.innerHTML = div.innerHTML + "<div class='drop_item' data-id='" 
   							  + result[i].id + "'>" + result[i].name + "</div>";
   			}
+
+  			$("#search_dropdown").removeClass("hide");
   			
   		});
 	});
 
+	$(document).on('click', '.drop_item', function() {
+
+		console.log("clicked");
+		var id = $(this).attr('data-id');
+  		for(var i = 0; i < friendList.length; i++)
+  		{
+  			if(friendList[i].id === id)
+  			{
+  				document.getElementById('user_img').src = friendList[i].picture;
+  			}
+  		}
+	});
+
 	$( ".clear" ).click(function() {
-  		console.log('Clicked Clear');
+
+		console.log('Clicked Clear');
+
+	  	var node = document.getElementById('search_dropdown');
+
+		while (node.hasChildNodes()) {
+		    node.removeChild(node.firstChild);
+		}
+
+		document.getElementById('user_img').src = "";
+		$("#search_dropdown").addClass("hide");
 	});
 
 });

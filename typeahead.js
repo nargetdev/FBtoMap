@@ -5,14 +5,14 @@
 
 		this.setDataList = function(data) {
 
+			//this.list = new Array();
 			console.log('typeahead -> setDataList');
-			console.log(this.list);
-			console.log(data);
+			//console.log(data);
 
-			//this.list = JSON.parse(JSON.stringify(data));
+			//list = JSON.parse(JSON.stringify(data));
 			this.list = data;
 
-			console.log(this.list)
+			//console.log(list)
 
 			for(var i = 0; i < data.length; i++) 
 			{
@@ -23,10 +23,10 @@
                 // 	picture: data[i].picture
                 // });
 
-				// this.list[i] = data[i];
+				//this.list[i] = data[i];
             }
 
-            this.list.sort(function(a, b) {
+            list.sort(function(a, b) {
             	return ((a.name < b.name) ? -1 : ((a.name > b.name) ? 1 : 0));
             })
 
@@ -35,7 +35,6 @@
             // 	//Prints sorted list.
             //     console.log(this.list[i].name);
             // }
-
             
 			// set the list to a list of name,id pairs
 			// then sort it by fullname A-Z 
@@ -60,11 +59,11 @@
 
 			console.log("Keys:");
 			console.log(keys);
-			console.log("List length: " + this.list.length);
+			console.log("List length: " + list.length);
 
-			for(var i = 0; i < this.list.length; i++)
+			for(var i = 0; i < list.length; i++)
 			{
-				var name = this.list[i].name;
+				var name = list[i].name;
 				name = name.toLowerCase();
 				var names = name.split(" ");
 				//console.log(names);
@@ -74,7 +73,6 @@
 					//Do not show this in the lookahead.
 					//If the user typed 'a b c' and the person has only a first and last name
 					//there is no way they can match.
-
 					continue;
 				}
 				else
@@ -87,16 +85,14 @@
 						{
 							if(names[k].indexOf(keys[j]) == 0) 
 							{
-								matches[j].push(k);
+								//matches[j].push(k);
 							}
 						}
 					}
 					//For now pushes all values into the result set.
-					result.push(this.list[i]);
+					result.push(list[i]);
 				}
 			}
-			console.log("Printing out callback");
-			console.log(cb);
 
 			cb(result);
 		}
