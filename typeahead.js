@@ -14,18 +14,6 @@
 
 			//console.log(list)
 
-			for(var i = 0; i < data.length; i++) 
-			{
-                // this.list.push({
-
-                // 	name: data[i].name,
-                // 	id: data[i].id,
-                // 	picture: data[i].picture
-                // });
-
-				//this.list[i] = data[i];
-            }
-
             list.sort(function(a, b) {
             	return ((a.name < b.name) ? -1 : ((a.name > b.name) ? 1 : 0));
             })

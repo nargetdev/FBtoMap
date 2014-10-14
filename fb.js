@@ -18,10 +18,8 @@ var Facebook = function(map, view, callback) {
 		FB.login(function(response) {
 			if (response.authResponse) {
 				console.log('Welcome!  Fetching your information.... ');
-				FB.api('/me', function(response) {
-				console.log('Good to see you, ' + response.name + '.');
+				FB.api('/me/photos?fields=place.fields(location,name)&limit=1000', this.passToMap);
 				callback();
-			});
 			} else {
 				console.log('User cancelled login or did not fully authorize.');
 			}
@@ -60,6 +58,7 @@ var Facebook = function(map, view, callback) {
 
 	var count = 0;
 	this.passToMap = function(response) {
+		console.log('PASSTOMAP');
 		// helper function for the search
 		// pulls out anything with a place
 		// call map.addPoint(point)
