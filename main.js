@@ -44,7 +44,10 @@ $(document).ready(function () {
 	this.setMiles = function(miles) {
 		// update #miles_traveled div
 
-		document.getElementById('miles_traveled').innerHTML = miles;
+		console.log("main -> setMiles");
+		console.log(miles);
+		console.log(miles.prettyPrint());
+		document.getElementById('miles_traveled').innerHTML = miles.prettyPrint();
 	}
 
 	this.setPic = function(user_id) {
@@ -155,6 +158,7 @@ $(document).ready(function () {
 		document.getElementById('user_img').src = "";
 		$("#search_dropdown").addClass("hide");
 
+		//Is this needed???**
 		document.getElementById('miles_traveled').innerHTML = 0;
 	});
 

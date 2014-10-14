@@ -8,11 +8,8 @@
 		// return a string representation of an integer
 		// which has commas every three digits
 
-		//***If this doesn't work we have to use regular expressions...
-
 		var val = this.valueOf();
-		val.toLocaleString();
-		return val;
+		return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	};
 
 	distanceFormula = function(first, second){

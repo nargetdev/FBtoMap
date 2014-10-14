@@ -29,29 +29,58 @@ var Map = function Map(view) {
 		// adds a point to this.points
 		this.points.push(point);
 		//console.log(this.points);
-		this.renderAllPoints();
-
+		//this.renderAllPoints();
 	}
+	
+	
 
 	this.renderAllPoints = function () {
 		// remove all old map data, *sort* the points
 		// and render each point ever ~300ms
 		// don't render the point if dist(this_pt,prev) === 0	
 		//sort the points first
-		var flightPlanCoordinates = [];
+
+		//Sorts the points by date.
+		this.points.sort(function(a, b) {
+            return ((a.time < b.time) ? -1 : ((a.time > b.time) ? 1 : 0));
+         });
+
+		console.log(this.points);
+
+		//Finds the total distance between each of the paths
+		//between two points in sequential order.
+		var totalDistance = 0;
+		for(var i = 0; i < this.points.length - 1; i++)
+		{
+			var dist = distanceFormula(this.points[i], this.points[i+1]);
+			console.log(dist);
+			totalDistance += dist;
+		}
+		view.setMiles(Math.round(totalDistance));
+
+
+		var coordinates = [];
 		for(var i = 0; i < this.points.length; i++)
 		{
-			flightPlanCoordinates.push(new google.maps.LatLng(this.points[i].lat, this.points[i].lng));
+			coordinates.push(new google.maps.LatLng(this.points[i].lat, this.points[i].lng));
 		}
-			  var flightPath = new google.maps.Polyline({
-			    path: flightPlanCoordinates,
-			    geodesic: true,
-			    strokeColor: '#FF0000',
-			    strokeOpacity: 1.0,
-			    strokeWeight: 2
-			  });
+		var polyline = new google.maps.Polyline({
+	    path: coordinates,
+	    geodesic: true,
+	    strokeColor: '#ffcb05',
+	    strokeOpacity: 1.0,
+	    strokeWeight: 4
+	  });
+		//console.log(polyline.getPath().getLength());
+		for ( var i = 0; i < polyline.getPath().getLength(); i++ ) {
+			var marker = new google.maps.Marker( {
+				position : polyline.getPath().getAt(i)
+			});
+			marker.setMap(this.map);
+		}
+			polyline.setMap(this.map);
+			view.hideSpinner();
 
-			  flightPath.setMap(this.map);	
 	}
 
 	this.removeData = function() {

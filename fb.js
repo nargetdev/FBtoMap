@@ -4,6 +4,7 @@ var Facebook = function(map, view, callback) {
 
 	var that = this;
 	this.login = function() {
+		view.showSpinner();
 		console.log('fb -> login');
 		// login a user and call callback() if successfull
 		// be sure to provide appropriate {scopes: "scopes,go,here"}
@@ -78,6 +79,7 @@ var Facebook = function(map, view, callback) {
 				map.addPoint(point);
 			}
 		}
+		map.renderAllPoints();
 	}
 
 	this.init = function() {
@@ -101,6 +103,7 @@ var Facebook = function(map, view, callback) {
 			FB.getLoginStatus(function(response) {
 				if (response.status === 'connected') {
 					// the user is logged in and has authenticated
+					view.showSpinner();
 					FB.api('/me/photos?fields=place.fields(location,name)&limit=1000', that.passToMap);
 					callback(); // we'll give you this one
 
