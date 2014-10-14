@@ -22,18 +22,17 @@ var Map = function Map(view) {
 		// render map here
 		this.map = new google.maps.Map($('#map_canvas')[0], mapOptions);
 	}
+
 	this.points = []; // { lat:0.0, lng:0.0, name: "", time: Date() }
 	this.markers = []; // array of markers already on map
 
 	this.addPoint = function(point) {
 		// adds a point to this.points
+
 		this.points.push(point);
-		//console.log(this.points);
-		//this.renderAllPoints();
 	}
 	
 	
-
 	this.renderAllPoints = function () {
 		// remove all old map data, *sort* the points
 		// and render each point ever ~300ms
@@ -45,6 +44,7 @@ var Map = function Map(view) {
             return ((a.time < b.time) ? -1 : ((a.time > b.time) ? 1 : 0));
          });
 
+		//Prints out sorted points on the map.
 		console.log(this.points);
 
 		//Finds the total distance between each of the paths
@@ -59,28 +59,33 @@ var Map = function Map(view) {
 		view.setMiles(Math.round(totalDistance));
 
 
+		//Adds polylines on the map.
 		var coordinates = [];
 		for(var i = 0; i < this.points.length; i++)
 		{
 			coordinates.push(new google.maps.LatLng(this.points[i].lat, this.points[i].lng));
 		}
 		var polyline = new google.maps.Polyline({
-	    path: coordinates,
-	    geodesic: true,
-	    strokeColor: '#ffcb05',
-	    strokeOpacity: 1.0,
-	    strokeWeight: 4
-	  });
-		//console.log(polyline.getPath().getLength());
-		for ( var i = 0; i < polyline.getPath().getLength(); i++ ) {
-			var marker = new google.maps.Marker( {
+
+		    path: coordinates,
+		    geodesic: true,
+		    strokeColor: '#ffcb05',
+		    strokeOpacity: 1.0,
+		    strokeWeight: 4
+	  	});
+	  	
+
+		//Adds markers on the map.
+		for(var i = 0; i < polyline.getPath().getLength(); i++ ) 
+		{
+			var marker = new google.maps.Marker({
+
 				position : polyline.getPath().getAt(i)
 			});
 			marker.setMap(this.map);
 		}
-			polyline.setMap(this.map);
-			view.hideSpinner();
-
+		polyline.setMap(this.map);
+		view.hideSpinner();
 	}
 
 	this.removeData = function() {

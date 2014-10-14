@@ -4,25 +4,16 @@
 		this.list = []; // list of objects like: { name:"", id:"" }
 
 		this.setDataList = function(data) {
-
-			console.log('typeahead -> setDataList');
-			//console.log(data);
-
-			list = data;
-			//console.log(list)
-
-            list.sort(function(a, b) {
-            	return ((a.name < b.name) ? -1 : ((a.name > b.name) ? 1 : 0));
-            })
-
-            // for(var i = 0; i < this.list.length; i++) 
-            // {
-            // 	//Prints sorted list.
-            //     console.log(this.list[i].name);
-            // }
-            
 			// set the list to a list of name,id pairs
 			// then sort it by fullname A-Z 
+
+			console.log('typeahead -> setDataList');
+
+			//Sorts the list using a lexographic comparator function.
+			list = data;
+            list.sort(function(a, b) {
+            	return ((a.name < b.name) ? -1 : ((a.name > b.name) ? 1 : 0));
+            });
 		}
 	
 		this.search = function(key, cb) {
@@ -51,7 +42,9 @@
 				var name = list[i].name;
 				name = name.toLowerCase();
 				var names = name.split(" ");
-				//console.log(names);
+
+				console.log("Names:");
+				console.log(names);
 
 				if(keys.length > names.length)
 				{

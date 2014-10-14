@@ -22,8 +22,8 @@ $(document).ready(function () {
 	so dev with Chrome for gosh sake! Use the dev tools too they're
 	amazing!
 	*/
-	var friendList = [];
 
+	var friendList = []; //For some reason typeahead.list was not rendering properly. Store this instead.
 	var map = new Map(this);
 	var typeahead = new Typeahead();
 	var that = this;
@@ -45,8 +45,6 @@ $(document).ready(function () {
 		// update #miles_traveled div
 
 		console.log("main -> setMiles");
-		console.log(miles);
-		console.log(miles.prettyPrint());
 		document.getElementById('miles_traveled').innerHTML = miles.prettyPrint();
 	}
 
@@ -113,20 +111,20 @@ $(document).ready(function () {
 
 	$("#user").keyup(function() {
 
-
   		var key = document.getElementById('user').value;
-  		typeahead.search(key, function(result) { 
+  		typeahead.search(key, function(result) {
+
+  			console.log("keyup->callback"); 
 
   			friendList = result;
+
+  			//Removes all elements in the dropdown list.
   			var node = document.getElementById('search_dropdown');
 			while (node.hasChildNodes()) {
 			    node.removeChild(node.firstChild);
 			}
 
-  			//callback function passed to typeahead.search
-  			console.log("keyup->callback");
-  			//console.log(result);
-
+			//Adds new elements to the dropdown list based on the typed in letters.
   			for(var i = 0; i < result.length; i++)
   			{
   				var div = document.getElementById('search_dropdown');

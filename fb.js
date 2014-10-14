@@ -1,10 +1,10 @@
 
 var Facebook = function(map, view, callback) {
 
+	var that = this; //Note this useful trick!
 
-	var that = this;
 	this.login = function() {
-		view.showSpinner();
+
 		console.log('fb -> login');
 		// login a user and call callback() if successfull
 		// be sure to provide appropriate {scopes: "scopes,go,here"}
@@ -18,6 +18,7 @@ var Facebook = function(map, view, callback) {
 		// use developers.facebook.com/tools/explorer to test!
 
 		// hint, what should the user see while they wait?
+		view.showSpinner();
 		FB.login(function(response) {
 			if (response.authResponse) {
 				console.log('Welcome!  Fetching your information.... ');
@@ -70,7 +71,8 @@ var Facebook = function(map, view, callback) {
 		{
 			if(!(typeof response.data[i].place === 'undefined'))
 			{
-				var point ={ 
+				var point = { 
+
 					lat:response.data[i].place.location.latitude, 
 					lng:response.data[i].place.location.longitude, 
 					name:response.data[i].place.name, 
@@ -79,6 +81,8 @@ var Facebook = function(map, view, callback) {
 				map.addPoint(point);
 			}
 		}
+
+		//After adding all points, renders them on the map all at once.
 		map.renderAllPoints();
 	}
 
@@ -106,12 +110,15 @@ var Facebook = function(map, view, callback) {
 					view.showSpinner();
 					FB.api('/me/photos?fields=place.fields(location,name)&limit=1000', that.passToMap);
 					callback(); // we'll give you this one
-
-				} else if (response.status === 'not_authorized') {
+				} 
+				else if (response.status === 'not_authorized') {
 					// the user is logged in to Facebook, 
 					// but has not authenticated your app
-				} else {
+
+				} 
+				else {
 					// the user isn't logged in to Facebook.
+
 				}
 			});
 		};
