@@ -5,6 +5,16 @@ var Facebook = function(map, view, callback) {
 		console.log('fb -> login');
 		// login a user and call callback() if successfull
 		// be sure to provide appropriate {scopes: "scopes,go,here"}
+		// get "photos" and "statuses" with places attached
+		// pass the data to the map with map.passToMap({...})
+		// after *all* two API calls have returned, call map.renderAllPoints()
+		// yay! async :) 
+
+		// be sure your scopes are right during login
+		// example: FB.api(id+"/photos?fields=place.fields(location,name)&limit=1000", this.passToMap);
+		// use developers.facebook.com/tools/explorer to test!
+
+		// hint, what should the user see while they wait?
 		FB.login(function(response) {
 			if (response.authResponse) {
 				console.log('Welcome!  Fetching your information.... ');
@@ -16,6 +26,8 @@ var Facebook = function(map, view, callback) {
 				console.log('User cancelled login or did not fully authorize.');
 			}
 		});
+
+
 	}
 
 	this.logout = function() {
