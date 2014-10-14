@@ -43,11 +43,21 @@ $(document).ready(function () {
 		
 	this.setMiles = function(miles) {
 		// update #miles_traveled div
+
+		document.getElementById('miles_traveled').innerHTML = miles;
 	}
 
 	this.setPic = function(user_id) {
 		// set the src of the #user_img
 		// check out http://graph.facebook.com/ottosipe/picture?type=large
+
+		for(var i = 0; i < friendList.length; i++)
+  		{
+  			if(friendList[i].id === user_id)
+  			{
+  				document.getElementById('user_img').src = friendList[i].picture;
+  			}
+  		}
 	}
 
 	this.showLogin = function() {
@@ -130,13 +140,7 @@ $(document).ready(function () {
 
 		console.log("clicked");
 		var id = $(this).attr('data-id');
-  		for(var i = 0; i < friendList.length; i++)
-  		{
-  			if(friendList[i].id === id)
-  			{
-  				document.getElementById('user_img').src = friendList[i].picture;
-  			}
-  		}
+		that.setPic(id);
 	});
 
 	$( ".clear" ).click(function() {
@@ -144,13 +148,14 @@ $(document).ready(function () {
 		console.log('Clicked Clear');
 
 	  	var node = document.getElementById('search_dropdown');
-
 		while (node.hasChildNodes()) {
 		    node.removeChild(node.firstChild);
 		}
 
 		document.getElementById('user_img').src = "";
 		$("#search_dropdown").addClass("hide");
+
+		document.getElementById('miles_traveled').innerHTML = 0;
 	});
 
 });
