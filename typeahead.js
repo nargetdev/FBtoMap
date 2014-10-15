@@ -36,60 +36,46 @@
 			console.log("Keys:");
 			console.log(keys);
 
-			var soHelpMeGod = function(matches){
-				console.log("got here");
-				var checkitout = [];
-				for (var a=0; a < matches[0].length; a++){
-					checkitout.push(0);
-				}
-				for (var i = 0; i < matches.length; i++){
-					for (var j=0; j < matches[i].length; j++){
-						if (matches[i][j] === 1){
-							checkitout[j]++;
+			var soHelpMeGod = function(keys, names)
+			{
+				// console.log("typehead->search->soHelpMeGod");
+				for(var j = 0; j < keys.length; j++)
+				{
+					// console.log(j);
+					for(var k = 0; k < names.length; k++)
+					{
+						// console.log(k);
+						if(names[k].indexOf(keys[j]) == 0) 
+						{
+							// console.log("broke");
+							break;
 						}
-					}
-				}
-				console.log(checkitout);
+						if (k == names.length-1){
+							// console.log("returned false");
+							return false;
+						}
+					} // checked all names for key k
+				} // checked all names for all keys
+				// at this point we can we know that every key had a valid match
+				return true;
 			}
 
+			console.log("Names:");
 			for(var i = 0; i < list.length; i++)
 			{
 				var name = list[i].name;
 				name = name.toLowerCase();
 				var names = name.split(" ");
 
-				console.log("Names:");
+
 				console.log(names);
 
-				if(keys.length > names.length)
-				{
-					//Do not show this in the lookahead. If the user typed 'a b c' and the 
-					//person has only a first and last name there is no way they can match.
-					continue;
-				}
-				else
-				{
-					var matches = [];
-					for(var j = 0; j < keys.length; j++)
-					{
-						var row = [];
-						matches.push(row);
-						
-						for(var k = 0; k < names.length; k++)
-						{
+				var goodtitbadtit = soHelpMeGod(keys, names);
+				// console.log(goodtitbadtit);
 
-							if(names[k].indexOf(keys[j]) == 0) 
-							{
-								matches[j].push(1);
-							}
-							else matches[j].push(0);
-						}
-					}
-					console.log(matches);
-					soHelpMeGod(matches);
-					//For now pushes all values into the result set.
-					result.push(list[i]);
-				}
+				if (goodtitbadtit) result.push(list[i]);
+
+				// }//esle
 			}
 
 			cb(result);

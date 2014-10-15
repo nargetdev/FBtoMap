@@ -30,9 +30,14 @@ $(document).ready(function () {
 	var fb = new Facebook(map, this, function() {
 
 		console.log('main -> fb = new Facebook()');
+
+		//I think this needs to change to populate the list differently.
 		fb.getFriends(typeahead.setDataList);
 		that.showLogout();
 
+		//initialize friendlist
+		that.friendList = typeahead.list;
+		console.log("typeahead.list is "+typeahead.list);
 		// called on successful login
 		// set typeahead data and show/hide buttons
 	});
@@ -120,8 +125,14 @@ $(document).ready(function () {
 
   			friendList = result;
 
-  			//Removes all elements in the dropdown list.
   			var node = document.getElementById('search_dropdown');
+  			var length = node.childNodes.length;
+  			//optimize typeahead by only removing instead
+  			//of the "remove all, then repopulate" dance.
+
+  			//Removes all elements in the dropdown list.
+  			console.log("Length of search_dropdown DOM elt: "+length);
+
 			while (node.hasChildNodes()) {
 			    node.removeChild(node.firstChild);
 			}
@@ -135,6 +146,14 @@ $(document).ready(function () {
   			}
 
   			$("#search_dropdown").removeClass("hide");
+
+  			console.log(typeahead.setDataList);
+  			typeahead.setDataList(result);
+
+  			// reset if empty.  This is a stupid solution that needs changing
+  			if (!result.length){
+				fb.getFriends(typeahead.setDataList);  				
+  			}
   			
   		});
 	});
@@ -149,6 +168,8 @@ $(document).ready(function () {
 	$( ".clear" ).click(function() {
 
 		console.log('Clicked Clear');
+		console.log('resetting friendlist');
+		fb.getFriends(typeahead.setDataList);
 
 	  	var node = document.getElementById('search_dropdown');
 		while (node.hasChildNodes()) {
