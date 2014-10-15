@@ -36,14 +36,30 @@
 			console.log("Keys:");
 			console.log(keys);
 
+			var soHelpMeGod = function(matches){
+				console.log("got here");
+				var checkitout = [];
+				for (var a=0; a < matches[0].length; a++){
+					checkitout.push(0);
+				}
+				for (var i = 0; i < matches.length; i++){
+					for (var j=0; j < matches[i].length; j++){
+						if (matches[i][j] === 1){
+							checkitout[j]++;
+						}
+					}
+				}
+				console.log(checkitout);
+			}
+
 			for(var i = 0; i < list.length; i++)
 			{
 				var name = list[i].name;
 				name = name.toLowerCase();
 				var names = name.split(" ");
 
-				// console.log("Names:");
-				// console.log(names);
+				console.log("Names:");
+				console.log(names);
 
 				if(keys.length > names.length)
 				{
@@ -53,18 +69,24 @@
 				}
 				else
 				{
+					var matches = [];
 					for(var j = 0; j < keys.length; j++)
 					{
-						// matches[j] = [];
-
+						var row = [];
+						matches.push(row);
+						
 						for(var k = 0; k < names.length; k++)
 						{
+
 							if(names[k].indexOf(keys[j]) == 0) 
 							{
-								//matches[j].push(k);
+								matches[j].push(1);
 							}
+							else matches[j].push(0);
 						}
 					}
+					console.log(matches);
+					soHelpMeGod(matches);
 					//For now pushes all values into the result set.
 					result.push(list[i]);
 				}
