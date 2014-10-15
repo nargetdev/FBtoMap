@@ -116,10 +116,17 @@ $(document).ready(function () {
   		fb.logout();
 	});
 
-	$("#user").keyup(function() {
+	//initialize  NOTE this could cause trouble.
+	//I've included it so that the index won't fail on the first iteration.
+	// var stash_a_key = function(saveMe) {
+	// 	var previous = saveMe;
+	// }
 
+	var previous_key;
+	// console.log(stash_a_key.previous+" ::initialized: ");
+	$("#user").keyup(function() {
   		var key = document.getElementById('user').value;
-  		typeahead.search(key, function(result) {
+  		typeahead.search(previous_key, key, function(result) {
 
   			console.log("keyup->callback"); 
 
@@ -155,6 +162,7 @@ $(document).ready(function () {
 				fb.getFriends(typeahead.setDataList);  				
   			}
   			
+  			previous_key = key;
   		});
 	});
 

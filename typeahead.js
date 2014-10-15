@@ -16,7 +16,7 @@
             });
 		}
 	
-		this.search = function(key, cb) {
+		this.search = function(stashit, key, cb) {
 			console.log("typeahead -> search");
 			// given a key, make it lowercase, seperate it into an 
 			// array ofdistinct words by spaces and compare it to the 
@@ -35,6 +35,18 @@
 
 			console.log("Keys:");
 			console.log(keys);
+			console.log("");
+			console.log("should be the same:");
+			console.log(stashit.previous);
+			for (var z=0; z < keys.length; z++)
+			{
+				// If previous key is not a prefix of the new one
+				// then we need a new search.
+				if (!keys[z].indexOf(prevkeys[z]) === 0){
+					fb.getFriends(typeahead.setDataList);  				
+				}
+			}
+			stashit(keys);
 
 			var soHelpMeGod = function(keys, names)
 			{
@@ -50,6 +62,8 @@
 							// console.log("broke");
 							break;
 						}
+						// if any key makes it through all the names without
+						// finding a match then that set of keys is no match
 						if (k == names.length-1){
 							// console.log("returned false");
 							return false;
