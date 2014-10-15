@@ -66,7 +66,7 @@ var Facebook = function(map, view, callback) {
 		// pulls out anything with a place
 		// call map.addPoint(point)
 		// be sure to make the time: new Date("time_string")
-		console.log("in passtomap");
+		console.log("fb -> passToMap");
 		for(var i = 0; i < response.data.length; i++)
 		{
 			if(!(typeof response.data[i].place === 'undefined'))

@@ -52,6 +52,8 @@ $(document).ready(function () {
 		// set the src of the #user_img
 		// check out http://graph.facebook.com/ottosipe/picture?type=large
 
+		console.log("main -> setPic");
+
 		for(var i = 0; i < friendList.length; i++)
   		{
   			if(friendList[i].id === user_id)
@@ -157,7 +159,7 @@ $(document).ready(function () {
 		$("#search_dropdown").addClass("hide");
 
 		//Is this needed???**
-		document.getElementById('miles_traveled').innerHTML = 0;
+		//document.getElementById('miles_traveled').innerHTML = 0;
 	});
 
 });

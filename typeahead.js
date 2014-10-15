@@ -35,7 +35,6 @@
 
 			console.log("Keys:");
 			console.log(keys);
-			console.log("List length: " + list.length);
 
 			for(var i = 0; i < list.length; i++)
 			{
@@ -43,14 +42,13 @@
 				name = name.toLowerCase();
 				var names = name.split(" ");
 
-				console.log("Names:");
-				console.log(names);
+				// console.log("Names:");
+				// console.log(names);
 
 				if(keys.length > names.length)
 				{
-					//Do not show this in the lookahead.
-					//If the user typed 'a b c' and the person has only a first and last name
-					//there is no way they can match.
+					//Do not show this in the lookahead. If the user typed 'a b c' and the 
+					//person has only a first and last name there is no way they can match.
 					continue;
 				}
 				else

@@ -20,6 +20,7 @@ var Map = function Map(view) {
 
 	this.init = function() {
 		// render map here
+		console.log("map -> init");
 		this.map = new google.maps.Map($('#map_canvas')[0], mapOptions);
 	}
 
@@ -28,7 +29,7 @@ var Map = function Map(view) {
 
 	this.addPoint = function(point) {
 		// adds a point to this.points
-
+		console.log("map -> addPoint");
 		this.points.push(point);
 	}
 	
@@ -38,6 +39,8 @@ var Map = function Map(view) {
 		// and render each point ever ~300ms
 		// don't render the point if dist(this_pt,prev) === 0	
 		//sort the points first
+
+		console.log("map -> renderAllPoints");
 
 		//Sorts the points by date.
 		this.points.sort(function(a, b) {
@@ -73,7 +76,7 @@ var Map = function Map(view) {
 		    strokeOpacity: 1.0,
 		    strokeWeight: 4
 	  	});
-	  	
+
 
 		//Adds markers on the map.
 		for(var i = 0; i < polyline.getPath().getLength(); i++ ) 
@@ -83,6 +86,7 @@ var Map = function Map(view) {
 				position : polyline.getPath().getAt(i)
 			});
 			marker.setMap(this.map);
+			//this.markers.push(marker);
 		}
 		polyline.setMap(this.map);
 		view.hideSpinner();
@@ -90,6 +94,14 @@ var Map = function Map(view) {
 
 	this.removeData = function() {
 		// reset distance, clear polypath and markers
+
+		console.log("map -> removeData");
+
+		// polyline.setMap(null);
+		// for(var i = 0; i < markers.length; i++) 
+		// {
+		// 	markers[i].setMap(null);
+		// }
 	}
 
 	this.renderSinglePoint = function(cb) {
