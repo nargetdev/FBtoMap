@@ -27,7 +27,7 @@ var Facebook = function(map, view, callback) {
 			} else {
 				console.log('User cancelled login or did not fully authorize.');
 			}
-		});
+		},{scopes: 'user_location,email,user_friends,user_status,user_photos, user_tagged_places'});
 
 
 	}
@@ -48,7 +48,6 @@ var Facebook = function(map, view, callback) {
 		console.log("fb -> getFriends");
 		
 		FB.api('/me/taggable_friends', function(response) {
-
             for(var i = 0; i < response.data.length; i++) {
             	list.push({
             		name: response.data[i].name,
@@ -66,7 +65,11 @@ var Facebook = function(map, view, callback) {
 		// pulls out anything with a place
 		// call map.addPoint(point)
 		// be sure to make the time: new Date("time_string")
+
 		console.log("fb -> passToMap");
+		console.log("response:");
+		console.log(response);
+
 		for(var i = 0; i < response.data.length; i++)
 		{
 			if(!(typeof response.data[i].place === 'undefined'))

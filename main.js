@@ -124,6 +124,7 @@ $(document).ready(function () {
 
 
 	$("#user").keyup(function() {
+		that.showSpinner();
   		var key = document.getElementById('user').value;
 
   		typeahead.search(key, function(result) {
@@ -152,9 +153,7 @@ $(document).ready(function () {
   			}
 
   			$("#search_dropdown").removeClass("hide");
-
-  			// console.log(typeahead.setDataList);
-  			// typeahead.setDataList(result);
+  			that.hideSpinner();
   		});
 	});
 
