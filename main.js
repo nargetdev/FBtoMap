@@ -24,6 +24,7 @@ $(document).ready(function () {
 	*/
 
 	var friendList = []; //For some reason typeahead.list was not rendering properly. Store this instead.
+	var loggedIn = false;
 	var map = new Map(this);
 	var typeahead = new Typeahead();
 	var that = this;
@@ -33,6 +34,7 @@ $(document).ready(function () {
 
 		//I think this needs to change to populate the list differently.
 		fb.getFriends(typeahead.setDataList);
+		loggedIn = true;
 		that.showLogout();
 
 		//initialize friendlist
@@ -124,7 +126,7 @@ $(document).ready(function () {
 
 
 	$("#user").keyup(function() {
-		that.showSpinner();
+		if(loggedIn) that.showSpinner();
   		var key = document.getElementById('user').value;
 
   		typeahead.search(key, function(result) {
@@ -153,7 +155,7 @@ $(document).ready(function () {
   			}
 
   			$("#search_dropdown").removeClass("hide");
-  			that.hideSpinner();
+  			if(loggedIn) that.hideSpinner();
   		});
 	});
 

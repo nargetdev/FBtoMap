@@ -26,6 +26,7 @@ var Facebook = function(map, view, callback) {
 				callback();
 			} else {
 				console.log('User cancelled login or did not fully authorize.');
+				view.hideSpinner();
 			}
 		},{scopes: 'user_location,email,user_friends,user_status,user_photos, user_tagged_places'});
 
@@ -36,6 +37,7 @@ var Facebook = function(map, view, callback) {
 		console.log('fb -> logout');
 		// log the user out, remember the buttons!
 		FB.logout(function(){document.location.reload();});
+		view.loggedIn = false;
 		view.showLogin();
 	}
 
