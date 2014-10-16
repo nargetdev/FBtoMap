@@ -122,23 +122,22 @@ $(document).ready(function () {
 	// 	var previous = saveMe;
 	// }
 
-	var previous_key;
-	// console.log(stash_a_key.previous+" ::initialized: ");
+
 	$("#user").keyup(function() {
   		var key = document.getElementById('user').value;
-  		typeahead.search(previous_key, key, function(result) {
+
+  		typeahead.search(key, function(result) {
 
   			console.log("keyup->callback"); 
 
   			friendList = result;
 
-  			var node = document.getElementById('search_dropdown');
-  			var length = node.childNodes.length;
-  			//optimize typeahead by only removing instead
-  			//of the "remove all, then repopulate" dance.
+  			console.log("result");
+  			console.log(result);
 
   			//Removes all elements in the dropdown list.
-  			console.log("Length of search_dropdown DOM elt: "+length);
+  			var node = document.getElementById('search_dropdown');
+  			var length = node.childNodes.length;
 
 			while (node.hasChildNodes()) {
 			    node.removeChild(node.firstChild);
@@ -154,15 +153,8 @@ $(document).ready(function () {
 
   			$("#search_dropdown").removeClass("hide");
 
-  			console.log(typeahead.setDataList);
-  			typeahead.setDataList(result);
-
-  			// reset if empty.  This is a stupid solution that needs changing
-  			if (!result.length){
-				fb.getFriends(typeahead.setDataList);  				
-  			}
-  			
-  			previous_key = key;
+  			// console.log(typeahead.setDataList);
+  			// typeahead.setDataList(result);
   		});
 	});
 

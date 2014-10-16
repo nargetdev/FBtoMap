@@ -16,7 +16,7 @@
             });
 		}
 	
-		this.search = function(stashit, key, cb) {
+		this.search = function(key, cb) {
 			console.log("typeahead -> search");
 			// given a key, make it lowercase, seperate it into an 
 			// array ofdistinct words by spaces and compare it to the 
@@ -28,29 +28,16 @@
 			// matches	{name:"Otto Sipe", id: "12345"}
 
 			var result = []; 	//Stores the result set of names that match the key.
-			//var matches = []; 	//Stores which name each word in key matches with.
 
 			key = key.toLowerCase();
 			var keys = key.split(" ");
 
 			console.log("Keys:");
 			console.log(keys);
-			console.log("");
-			console.log("should be the same:");
-			console.log(stashit.previous);
-			for (var z=0; z < keys.length; z++)
-			{
-				// If previous key is not a prefix of the new one
-				// then we need a new search.
-				if (!keys[z].indexOf(prevkeys[z]) === 0){
-					fb.getFriends(typeahead.setDataList);  				
-				}
-			}
-			stashit(keys);
 
-			var soHelpMeGod = function(keys, names)
+
+			var isPrefix = function(keys, names)
 			{
-				// console.log("typehead->search->soHelpMeGod");
 				for(var j = 0; j < keys.length; j++)
 				{
 					// console.log(j);
@@ -80,16 +67,12 @@
 				var name = list[i].name;
 				name = name.toLowerCase();
 				var names = name.split(" ");
+				//console.log(names);
 
+				var isValid = isPrefix(keys, names);
+				// console.log(valid);
 
-				console.log(names);
-
-				var goodtitbadtit = soHelpMeGod(keys, names);
-				// console.log(goodtitbadtit);
-
-				if (goodtitbadtit) result.push(list[i]);
-
-				// }//esle
+				if (isValid) result.push(list[i]);
 			}
 
 			cb(result);
