@@ -55,10 +55,26 @@ var Map = function Map(view) {
 		var totalDistance = 0;
 		for(var i = 0; i < this.points.length - 1; i++)
 		{
-			var dist = distanceFormula(this.points[i], this.points[i+1]);
-			console.log(dist);
-			totalDistance += dist;
+		console.log("points.length is -> "+this.points.length);
+			// console.log("firstlat: "+this.points[i].lat+"seocond lng 'i+1': "+this.points[i+1].lng);
+			// this check is necessary in order to not index past the end.
+			// I honestly don't know why it was working for sid's account.
+			console.log("Hello I'm itterating... "+i);
+			console.log(this.points[i+1].lat);
+			if ((typeof this.points[i].lat === 'undefined') ||
+				(typeof this.points[i+1].lat === 'undefined')){
+				console.log("We struck trouble at point: "+i);
+			}
+			if (!(typeof this.points[i].lat === 'undefined') &&
+				!(typeof this.points[i+1].lat === 'undefined')){
+				var dist = distanceFormula(this.points[i], this.points[i+1]);
+				console.log("cur dist is "+dist);
+				totalDistance += dist;
+				console.log("total dist is "+totalDistance);
+			}
+
 		}
+
 		view.setMiles(Math.round(totalDistance));
 
 

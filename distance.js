@@ -21,8 +21,12 @@
 
 		if(!first || !second) return 0;
 
+		console.log(second.lat);
 		var dLat = (second.lat - first.lat).toRad();
+		console.log(first.lat);
+		console.log(second.lng);
 		var dLng = (second.lng - first.lng).toRad();
+		console.log(first.lng);
 		var lat1 = first.lat.toRad();
 		var lat2 = second.lat.toRad();
 

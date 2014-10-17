@@ -95,11 +95,11 @@ var Facebook = function(map, view, callback) {
 	
 			// init the FB JS SDK
 			FB.init({
-				appId      : '550842745047551',	// App ID from the app dashboard
+				appId      : '300831163443482',	// App ID from the app dashboard
 				channelUrl : '/channel.html', 	// Channel file for x-domain comms
 				status     : true,				// Check Facebook Login status
 				xfbml      : true,				// Look for social plugins on the page
-				version    : 'v2.0',
+				version    : 'v2.1',
 				cookie     : true,
 				oauth      : true
 			});
