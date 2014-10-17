@@ -25,12 +25,14 @@ var Map = function Map(view) {
 	}
 
 	this.points = []; // { lat:0.0, lng:0.0, name: "", time: Date() }
+	// this.pics = []; // add the pics to the points
 	this.markers = []; // array of markers already on map
 
 	this.addPoint = function(point) {
 		// adds a point to this.points
 		console.log("map -> addPoint");
 		this.points.push(point);
+		console.log(point);
 	}
 	
 	
@@ -48,7 +50,7 @@ var Map = function Map(view) {
          });
 
 		//Prints out sorted points on the map.
-		console.log(this.points);
+		console.log("our points are\n"+this.points[0].lat);
 
 		//Finds the total distance between each of the paths
 		//between two points in sequential order.
@@ -60,6 +62,8 @@ var Map = function Map(view) {
 			// this check is necessary in order to not index past the end.
 			// I honestly don't know why it was working for sid's account.
 			console.log("Hello I'm itterating... "+i);
+			console.log("This photo is: "+this.points[i].picurl);
+			
 			console.log(this.points[i+1].lat);
 			if ((typeof this.points[i].lat === 'undefined') ||
 				(typeof this.points[i+1].lat === 'undefined')){
@@ -95,17 +99,35 @@ var Map = function Map(view) {
 
 
 		//Adds markers on the map.
+		var marker = [];
+		var listeners = [];
 		for(var i = 0; i < polyline.getPath().getLength(); i++ ) 
 		{
-			var marker = new google.maps.Marker({
+			var img = this.points[i].picurl;
+			var linkToFB = this.points[i].link;
+			console.log("link for "+i+" is "+linkToFB);
 
+			marker[i] = new google.maps.Marker({
+				url : linkToFB,
+				icon : img,
 				position : polyline.getPath().getAt(i)
 			});
-			marker.setMap(this.map);
+			marker[i].set("id",i);
+
+			listeners[i] = google.maps.event.addListener(marker[i], 'click', function() {
+				// console.log("you clicked");
+				// console.log(linkToFB);
+				// window.location.href = linkToFB;
+				console.log(i);
+			});
+
+			marker[i].setMap(this.map);
 			//this.markers.push(marker);
 		}
 		polyline.setMap(this.map);
 		view.hideSpinner();
+
+
 	}
 
 	this.removeData = function() {

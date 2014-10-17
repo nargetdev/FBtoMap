@@ -67,17 +67,23 @@ var Facebook = function(map, view, callback) {
 		// call map.addPoint(point)
 		// be sure to make the time: new Date("time_string")
 		console.log("fb -> passToMap");
+		console.log(response.data[0].link);
+		console.log(response.data[0].picture);
+
 		for(var i = 0; i < response.data.length; i++)
 		{
 			if(!(typeof response.data[i].place === 'undefined'))
 			{
-				var point = { 
 
+				var point = {
 					lat:response.data[i].place.location.latitude, 
 					lng:response.data[i].place.location.longitude, 
 					name:response.data[i].place.name, 
-					time: new Date(response.data[i].created_time) 
+					time: new Date(response.data[i].created_time),
+					picurl:response.data[i].picture,
+					link:response.data[i].link
 				}
+				console.log(response.data[i].picture)
 				map.addPoint(point);
 			}
 		}
@@ -108,7 +114,7 @@ var Facebook = function(map, view, callback) {
 				if (response.status === 'connected') {
 					// the user is logged in and has authenticated
 					view.showSpinner();
-					FB.api('/me/photos?fields=place.fields(location,name)&limit=1000', that.passToMap);
+					FB.api('me/photos?fields=picture,link,place.fields(location,name)&limit=1000', that.passToMap);
 					callback(); // we'll give you this one
 				} 
 				else if (response.status === 'not_authorized') {
