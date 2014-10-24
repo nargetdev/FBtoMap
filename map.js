@@ -101,16 +101,32 @@ var Map = function Map(view) {
 		//Adds markers on the map.
 		var marker = [];
 		var listeners = [];
-		for(var i = 0; i < polyline.getPath().getLength(); i++ ) 
+		for (var zz = 0; zz < 100; zz++){
+		console.log("this.points.length is: "+this.points.length+" jajaja "+zz);}
+		//console.log("polyline length is"+polyline.getPath().getLength()+" jajaja "+zz);}
+		for(var i = 0; i < this.points.length; i++ ) 
 		{
 			var img = this.points[i].picurl;
 			var linkToFB = this.points[i].link;
 			console.log("link for "+i+" is "+linkToFB);
 
+			//var pos = new LatLng(lat:this.points[i].lat, lng:this.points[i]lng);
+			//console.log(pos);
+			if (typeof this.points[i].lat == 'undefined')
+			{
+				for (var z = 0; z<20; z++)
+				{
+					console.log(z+ "photo NAME>>>"+ this.points[i].name+"<<<NAME " + i + " at url " + linkToFB + " und.");
+				}
+				continue;
+			}
+
 			marker[i] = new google.maps.Marker({
 				url : linkToFB,
 				icon : img,
-				position : polyline.getPath().getAt(i)
+				//position : polyline.getPath().getAt(i),
+				position : {lat: this.points[i].lat, lng: this.points[i].lng},
+				draggable : true
 			});
 			marker[i].set("id",i);
 
